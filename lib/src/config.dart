@@ -11,7 +11,7 @@ class DrawConfig {
   final int seed;
   final Randomizer randomizer;
 
-  static DrawConfig defaultValues = DrawConfig.build(
+  static DrawConfig defaultValues = DrawConfig._(
     maxRandomnessOffset: 2,
     roughness: 1,
     bowing: 1,
@@ -19,17 +19,18 @@ class DrawConfig {
     curveTightness: 0,
     curveStepCount: 9,
     seed: 1,
+    randomizer: Randomizer(seed: 1),
   );
 
   const DrawConfig._({
-    this.maxRandomnessOffset,
-    this.roughness,
-    this.bowing,
-    this.curveFitting,
-    this.curveTightness,
-    this.curveStepCount,
-    this.seed,
-    this.randomizer,
+    required this.maxRandomnessOffset,
+    required this.roughness,
+    required this.bowing,
+    required this.curveFitting,
+    required this.curveTightness,
+    required this.curveStepCount,
+    required this.seed,
+    required this.randomizer,
   });
 
   /// Generates a [DrawConfig]
@@ -40,26 +41,28 @@ class DrawConfig {
   /// * [curveTightness]
   /// * [curveFitting] When drawing ellipses, circles, and arcs, it means how close should the rendered dimensions be when compared to the specified one. Default value is 0.95.
   static DrawConfig build({
-    double maxRandomnessOffset,
-    double roughness,
-    double bowing,
-    double curveFitting,
-    double curveTightness,
-    double curveStepCount,
-    int seed,
+    double maxRandomnessOffset = 2,
+    double roughness = 1,
+    double bowing = 1,
+    double curveFitting = 0.95,
+    double curveTightness = 0,
+    double curveStepCount = 0.95,
+    int seed = 1,
   }) =>
       DrawConfig._(
-          maxRandomnessOffset: maxRandomnessOffset ?? defaultValues.maxRandomnessOffset,
-          roughness: roughness ?? defaultValues.roughness,
-          bowing: bowing ?? defaultValues.bowing,
-          curveFitting: curveFitting ?? defaultValues.curveFitting,
-          curveTightness: curveTightness ?? defaultValues.curveTightness,
-          curveStepCount: curveStepCount ?? defaultValues.curveStepCount,
-          seed: seed ?? defaultValues.seed,
-          randomizer: Randomizer(seed: seed ?? defaultValues.seed));
+          maxRandomnessOffset: maxRandomnessOffset,
+          roughness: roughness,
+          bowing: bowing,
+          curveFitting: curveFitting,
+          curveTightness: curveTightness,
+          curveStepCount: curveStepCount,
+          seed: seed,
+          randomizer: Randomizer(seed: seed));
 
   double offset(double min, double max, [double roughnessGain = 1]) {
-    return roughness * roughnessGain * ((randomizer.next() * (max - min)) + min);
+    return roughness *
+        roughnessGain *
+        ((randomizer.next() * (max - min)) + min);
   }
 
   double offsetSymmetric(double x, [double roughnessGain = 1]) {
@@ -67,16 +70,16 @@ class DrawConfig {
   }
 
   DrawConfig copyWith({
-    double maxRandomnessOffset,
-    double roughness,
-    double bowing,
-    double curveFitting,
-    double curveTightness,
-    double curveStepCount,
-    double fillWeight,
-    int seed,
-    bool combineNestedSvgPaths,
-    Randomizer randomizer,
+    double? maxRandomnessOffset,
+    double? roughness,
+    double? bowing,
+    double? curveFitting,
+    double? curveTightness,
+    double? curveStepCount,
+    double? fillWeight,
+    int? seed,
+    bool? combineNestedSvgPaths,
+    Randomizer? randomizer,
   }) =>
       DrawConfig._(
           maxRandomnessOffset: maxRandomnessOffset ?? this.maxRandomnessOffset,
@@ -86,7 +89,10 @@ class DrawConfig {
           curveTightness: curveTightness ?? this.curveTightness,
           curveStepCount: curveStepCount ?? this.curveStepCount,
           seed: seed ?? this.seed,
-          randomizer: randomizer ?? (this.randomizer == null ? null : Randomizer(seed: this.randomizer.seed)));
+          randomizer: randomizer ??
+              (this.randomizer == null
+                  ? Randomizer(seed: this.seed)
+                  : Randomizer(seed: this.randomizer!.seed)));
 
   @override
   bool operator ==(Object other) =>
@@ -116,12 +122,11 @@ class DrawConfig {
 
 class Randomizer {
   Random _random;
-  int _seed;
+  final int _seed;
 
-  Randomizer({int seed = 0}) {
-    _seed = seed;
-    _random = Random(seed);
-  }
+  Randomizer({int seed = 0})
+      : _random = Random(seed),
+        _seed = seed;
 
   int get seed => _seed;
 

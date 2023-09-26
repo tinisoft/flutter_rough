@@ -26,23 +26,22 @@ class DecorationExamplePage extends StatelessWidget {
 }
 
 class NiceBox extends StatelessWidget {
-  const NiceBox({
-    Key key,
-  }) : super(key: key);
+  const NiceBox({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: RoughBoxDecoration(
           shape: RoughBoxShape.rectangle,
-          borderStyle: RoughDrawingStyle(
+          drawConfig: DrawConfig.defaultValues,
+          borderStyle: const RoughDrawingStyle(
             width: 4,
             color: Colors.orange,
           ),
           filler: DotFiller(FillerConfig.build(hachureGap: 15, fillWeight: 10)),
           fillStyle: RoughDrawingStyle(
             width: 2,
-            color: Colors.blue[100],
+            color: Colors.blue.shade100,
           )),
       child: const Text(
         'BoxDecorator\ndecorating\na nice\nbox with text',
@@ -54,9 +53,7 @@ class NiceBox extends StatelessWidget {
 }
 
 class HighlightedText extends StatelessWidget {
-  const HighlightedText({
-    Key key,
-  }) : super(key: key);
+  const HighlightedText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +61,9 @@ class HighlightedText extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8),
       decoration: RoughBoxDecoration(
         shape: RoughBoxShape.rectangle,
-        filler: ZigZagFiller(FillerConfig.defaultConfig.copyWith(hachureGap: 6, hachureAngle: 110)),
-        fillStyle: RoughDrawingStyle(color: Colors.yellow[600], width: 6),
+        filler: ZigZagFiller(FillerConfig.defaultConfig
+            .copyWith(hachureGap: 6, hachureAngle: 110)),
+        fillStyle: RoughDrawingStyle(color: Colors.yellow.shade600, width: 6),
       ),
       child: const Text(
         'Text remarked with a highlighter',
@@ -76,9 +74,7 @@ class HighlightedText extends StatelessWidget {
 }
 
 class CircledIcon extends StatelessWidget {
-  const CircledIcon({
-    Key key,
-  }) : super(key: key);
+  const CircledIcon({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +89,7 @@ class CircledIcon extends StatelessWidget {
           curveStepCount: 6,
         ),
         filler: SolidFiller(FillerConfig.defaultConfig),
-        borderStyle: RoughDrawingStyle(
+        borderStyle: const RoughDrawingStyle(
           color: Colors.lightGreen,
           width: 6,
         ),
@@ -104,9 +100,7 @@ class CircledIcon extends StatelessWidget {
 }
 
 class SecretText extends StatelessWidget {
-  const SecretText({
-    Key key,
-  }) : super(key: key);
+  const SecretText({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -125,11 +119,11 @@ class SecretText extends StatelessWidget {
                   hachureGap: 5,
                   drawConfig: DrawConfig.build(roughness: 3),
                 )),
-                fillStyle: RoughDrawingStyle(
+                fillStyle: const RoughDrawingStyle(
                   color: Colors.brown,
                   width: 2,
                 )),
-            child: Text(
+            child: const Text(
               'secret text',
               style: TextStyle(color: Colors.black, fontSize: 18),
             ),

@@ -18,7 +18,9 @@ abstract class Demo {
 class InteractiveDemo extends Demo {
   final ExampleBuilder exampleBuilder;
 
-  InteractiveDemo(String name, String description, this.exampleBuilder, Widget icon) : super(name, description, icon);
+  InteractiveDemo(
+      String name, String description, this.exampleBuilder, Widget icon)
+      : super(name, description, icon);
 
   @override
   Widget buildPage(BuildContext context) {
@@ -28,7 +30,8 @@ class InteractiveDemo extends Demo {
 
 class NormalDemo extends Demo {
   final WidgetBuilder builder;
-  NormalDemo(String name, String description, this.builder, Widget icon) : super(name, description, icon);
+  NormalDemo(String name, String description, this.builder, Widget icon)
+      : super(name, description, icon);
 
   @override
   Widget buildPage(BuildContext context) {
@@ -39,7 +42,8 @@ class NormalDemo extends Demo {
 typedef ExampleBuilder = InteractiveExample Function();
 
 final List<Demo> demos = [
-  InteractiveDemo('Flutter logo', 'A simple Flutter logo drawn using Rough', () => FlutterLogoExample(), const FlutterLogo()),
+  InteractiveDemo('Flutter logo', 'A simple Flutter logo drawn using Rough',
+      () => FlutterLogoExample(), const FlutterLogo()),
   InteractiveDemo(
     'Interactive circle',
     'A circle drawn with Rough generated with interactive parameters',
@@ -56,7 +60,7 @@ final List<Demo> demos = [
     'Interactive arc',
     'An arc drawn with Rough generated with interactive parameters',
     () => ArcExample(),
-    const Icon(Icons.pie_chart_outlined, size: 36),
+    const Icon(Icons.pie_chart_outline, size: 36),
   ),
   InteractiveDemo(
     'Interactive curve',

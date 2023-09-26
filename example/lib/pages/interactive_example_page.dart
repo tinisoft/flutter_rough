@@ -7,7 +7,8 @@ class ExamplePage extends StatelessWidget {
   final String title;
   final InteractiveExample Function() exampleBuilder;
 
-  const ExamplePage({Key key, this.title, this.exampleBuilder}) : super(key: key);
+  const ExamplePage(
+      {required this.title, required this.exampleBuilder, super.key});
 
   @override
   Widget build(BuildContext context) {

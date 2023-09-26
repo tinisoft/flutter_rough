@@ -36,7 +36,7 @@ class DemoList extends StatelessWidget {
 class DemoRow extends StatelessWidget {
   final Demo demo;
 
-  const DemoRow({Key key, this.demo}) : super(key: key);
+  const DemoRow({required this.demo, super.key});
 
   @override
   Widget build(BuildContext context) {
